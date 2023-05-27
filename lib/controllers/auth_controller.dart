@@ -2,16 +2,36 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_clone_tiktok/constants.dart';
+import 'package:flutter_clone_tiktok/views/screens/auth/login_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter_clone_tiktok/models/user.dart' as model;
 import 'package:image_picker/image_picker.dart';
 
+import '../views/screens/home_screen.dart';
+
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
   
+  late Rx<User?> _user;
   late Rx<File?> _pickedImage;
   
   File? get ProfilePhoto => _pickedImage.value;
+
+  @override
+  void onReady() {
+    super.onReady();
+    _user = Rx<User?>(firebaseAuth.currentUser);
+    _user.bindStream(firebaseAuth.authStateChanges());
+    ever(_user, _setInitialScreen);
+  }
+
+  _setInitialScreen(User? user) {
+    if (user == null) {
+      Get.offAll(() => LoginScreen());
+    } else {
+      Get.offAll(() => HomeScreen());
+    }
+  }
 
   void pickImage() async {
     final pickImage = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -59,6 +79,18 @@ class AuthController extends GetxController {
       }
     } catch (e) {
       Get.snackbar('Error Creating Account ', e.toString());
+    }
+  }
+
+  void loginUser(String email, String password) async {
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      } else {
+        Get.snackbar('Error Loging in', 'Please enter all field!');
+      }
+    } catch(e){
+      Get.snackbar('Error Loging in', e.toString());
     }
   }
 }
