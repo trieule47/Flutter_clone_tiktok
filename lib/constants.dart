@@ -17,7 +17,7 @@ const avatarDefaultUrl =
 //Firebase
 var firebaseAuth = FirebaseAuth.instance;
 var firebaseStorage = FirebaseStorage.instance;
-var firertore = FirebaseFirestore.instance;
+var firestore = FirebaseFirestore.instance;
 
 //Controller
 var authController = AuthController.instance;

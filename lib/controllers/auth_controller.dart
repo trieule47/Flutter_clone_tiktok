@@ -70,7 +70,7 @@ class AuthController extends GetxController {
             email: email,
             uid: cred.user!.uid,
             profilePhoto: downloadUrl);
-        await firertore
+        await firestore
             .collection('user')
             .doc(cred.user!.uid)
             .set(user.toJson());
