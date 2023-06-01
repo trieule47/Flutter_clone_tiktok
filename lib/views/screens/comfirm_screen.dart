@@ -85,6 +85,11 @@ class _ConfirmScreenState extends State<ConfirmScreen> {
                       _songController.text, 
                       _captionController.text, 
                       widget.videoPath),
+                    // onPressed: (){
+                    //   print(_songController.text); 
+                    //   print(_captionController.text); 
+                    //   print(widget.videoPath);
+                    // },
                     child: Text('Share!',
                         style: TextStyle(fontSize: 20, color: Colors.white)),
                   ),

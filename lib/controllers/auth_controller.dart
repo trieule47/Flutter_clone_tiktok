@@ -11,10 +11,10 @@ import '../views/screens/home_screen.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
-  
+
   late Rx<User?> _user;
   late Rx<File?> _pickedImage;
-  
+
   File? get ProfilePhoto => _pickedImage.value;
 
   @override
@@ -34,11 +34,13 @@ class AuthController extends GetxController {
   }
 
   void pickImage() async {
-    final pickImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickImage!=null) {
-      Get.snackbar('Profile Picture', 'You have successfully selected your profile picture!');
+    final pickImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickImage != null) {
+      Get.snackbar('Profile Picture',
+          'You have successfully selected your profile picture!');
     }
-    _pickedImage = Rx<File?> (File(pickImage!.path));
+    _pickedImage = Rx<File?>(File(pickImage!.path));
   }
 
   Future<String> _uploadToStorage(File image) async {
@@ -85,11 +87,12 @@ class AuthController extends GetxController {
   void loginUser(String email, String password) async {
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
-        await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+        await firebaseAuth.signInWithEmailAndPassword(
+            email: email, password: password);
       } else {
         Get.snackbar('Error Loging in', 'Please enter all field!');
       }
-    } catch(e){
+    } catch (e) {
       Get.snackbar('Error Loging in', e.toString());
     }
   }

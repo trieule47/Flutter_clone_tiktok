@@ -6,10 +6,13 @@ import 'package:video_compress/video_compress.dart';
 import '../models/video.dart';
 
 class UploadVideoController extends GetxController {
-  _compressVideo(String video) async {
-    final compressVideo = await VideoCompress.compressVideo(video,
-        quality: VideoQuality.MediumQuality);
-    return compressVideo!.file;
+  _compressVideo(String videoPath) async {
+    final compressVideo = await VideoCompress.compressVideo(
+      videoPath,
+      quality: VideoQuality.MediumQuality,
+    );
+    var vi = compressVideo?.file ?? 0; 
+    return vi;
   }
 
   Future<String> _uploadVideoToStorage(String id, String videoPath) async {
@@ -39,7 +42,7 @@ class UploadVideoController extends GetxController {
     try {
       String uid = firebaseAuth.currentUser!.uid;
       DocumentSnapshot userDoc =
-          await firestore.collection('users').doc(uid).get();
+          await firestore.collection('user').doc(uid).get();
 
       var allDocs = await firestore.collection('videos').get();
       int len = allDocs.docs.length;
