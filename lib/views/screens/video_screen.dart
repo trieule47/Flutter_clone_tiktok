@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clone_tiktok/views/widgets/circle_animation.dart';
 import 'package:video_player/video_player.dart';
 
 import '../widgets/video_player_item.dart';
 
 class VideoScreen extends StatelessWidget {
   const VideoScreen({super.key});
+
+  buildMusicAlbum(String profilePhoto) {
+    return SizedBox(
+      width: 60,
+      height: 60,
+      child: Container(
+        padding: EdgeInsets.all(11),
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [Colors.grey, Colors.white]),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(25),
+          child: Image(
+            image: NetworkImage(profilePhoto),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +53,7 @@ class VideoScreen extends StatelessWidget {
                   children: [
                     Container(
                       width: size.width,
-                      height: size.height - 129,
+                      height: size.height - 150,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -38,7 +62,7 @@ class VideoScreen extends StatelessWidget {
                             children: [
                               Container(
                                 margin: EdgeInsets.only(bottom: 10),
-                                height: size.height / 10,
+                                height: size.height / 11,
                                 width: size.width / 5,
                                 decoration: BoxDecoration(
                                     border: Border.all(
@@ -51,10 +75,18 @@ class VideoScreen extends StatelessWidget {
                                   child: CircleAvatar(),
                                 ),
                               ),
+                              Positioned(
+                                  bottom: 1,
+                                  left: size.width / 10 - 9,
+                                  child: Text(
+                                    '+',
+                                    style: TextStyle(
+                                        color: Colors.red, fontSize: 30),
+                                  ))
                             ],
                           ),
                           Container(
-                            height: size.height / 10,
+                            height: size.height / 11,
                             width: size.width / 5,
                             child: InkWell(
                               onTap: () {
@@ -88,7 +120,7 @@ class VideoScreen extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            height: size.height / 10,
+                            height: size.height / 11,
                             width: size.width / 5,
                             child: InkWell(
                                 onTap: () {
@@ -121,7 +153,7 @@ class VideoScreen extends StatelessWidget {
                                 )),
                           ),
                           Container(
-                            height: size.height / 10,
+                            height: size.height / 11,
                             width: size.width / 5,
                             child: InkWell(
                                 onTap: () {
@@ -154,7 +186,7 @@ class VideoScreen extends StatelessWidget {
                                 )),
                           ),
                           Container(
-                            height: size.height / 8,
+                            height: size.height / 11,
                             width: size.width / 5,
                             child: Icon(
                               Icons.bookmark,
@@ -165,6 +197,13 @@ class VideoScreen extends StatelessWidget {
                                     blurRadius: 5.0,
                                     offset: Offset(0, 0))
                               ],
+                            ),
+                          ),
+                          Container(
+                            height: size.height / 11,
+                            width: size.width / 5,
+                            child: CircleAnimation(
+                              child: buildMusicAlbum('Photos'),
                             ),
                           ),
                         ],
