@@ -17,7 +17,7 @@ class _CircleAnimationState extends State<CircleAnimation> with SingleTickerProv
     controller = AnimationController(
       vsync: this,
       duration: const Duration(
-        microseconds: 50000,
+        seconds: 5,
       ),
     );
     controller.forward();
@@ -26,9 +26,8 @@ class _CircleAnimationState extends State<CircleAnimation> with SingleTickerProv
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     controller.dispose();
+    super.dispose();
   }
 
   @override
