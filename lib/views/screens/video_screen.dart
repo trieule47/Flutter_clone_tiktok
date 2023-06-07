@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clone_tiktok/views/screens/comment_screen.dart';
 import 'package:flutter_clone_tiktok/views/widgets/circle_animation.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -79,10 +80,8 @@ class VideoScreen extends StatelessWidget {
                                       print('ff');
                                     },
                                     child: CircleAvatar(
-                                      child: Image(
-                                        image: NetworkImage(data.profilePhoto),
-                                        fit: BoxFit.cover,
-                                      ),
+                                      backgroundImage:
+                                          NetworkImage(data.profilePhoto),
                                     ),
                                   ),
                                 ),
@@ -107,7 +106,10 @@ class VideoScreen extends StatelessWidget {
                                   children: [
                                     Icon(
                                       Icons.favorite,
-                                      color: Colors.red ,
+                                      color: data.likes
+                                              .contains(authController.user.uid)
+                                          ? Colors.red
+                                          : Colors.white,
                                       size: 25,
                                       shadows: <Shadow>[
                                         Shadow(
@@ -136,7 +138,12 @@ class VideoScreen extends StatelessWidget {
                               width: size.width / 5,
                               child: InkWell(
                                   onTap: () {
-                                    print('ff');
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CommentScreen(id: data.id),
+                                      ),
+                                    );
                                   },
                                   child: Column(
                                     children: [
