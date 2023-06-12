@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clone_tiktok/constants.dart';
 import 'package:flutter_clone_tiktok/views/widgets/text_input_field.dart';
 
+import 'login_screen.dart';
+
 class SignupScreen extends StatelessWidget {
   SignupScreen({Key? key}) : super(key: key);
 
@@ -115,9 +117,9 @@ class SignupScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                   InkWell(
-                    onTap: () {
-                      print('Login');
-                    },
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    ),
                     child: Text(
                       'Login ',
                       style: TextStyle(fontSize: 20, color: buttonColor),

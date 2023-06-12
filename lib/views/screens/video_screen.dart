@@ -15,8 +15,8 @@ class VideoScreen extends StatelessWidget {
 
   buildMusicAlbum(String profilePhoto) {
     return SizedBox(
-      width: 60,
-      height: 60,
+      width: 50,
+      height: 50,
       child: Container(
         padding: EdgeInsets.all(11),
         height: 50,
@@ -60,7 +60,7 @@ class VideoScreen extends StatelessWidget {
                     children: [
                       Container(
                         width: size.width,
-                        height: size.height - 112,
+                        height: size.height - 129,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.end,
