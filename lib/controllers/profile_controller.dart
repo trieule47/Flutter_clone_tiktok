@@ -80,10 +80,12 @@ class ProfileController extends GetxController {
       'name': name,
       'thumbnails': thumbnails,
     };
-    update();
+    print(_user.value.toString());
+    // update();
   }
 
   followUser() async {
+    print('into ');
     var doc = await firestore
         .collection('user')
         .doc(_uid.value)
@@ -108,8 +110,9 @@ class ProfileController extends GetxController {
         'followers',
         (value) => (int.parse(value) + 1).toString(),
       );
+      print(_user.value.toString());
     } else {
-            await firestore
+      await firestore
           .collection('user')
           .doc(_uid.value)
           .collection('followers')
@@ -121,11 +124,17 @@ class ProfileController extends GetxController {
           .collection('following')
           .doc(_uid.value)
           .delete();
+
       _user.value.update(
         'followers',
         (value) => (int.parse(value) - 1).toString(),
       );
+            print(_user.value.toString());
+
     }
     _user.value.update('isFollowing', (value) => !value);
+                print(_user.value.toString());
+                update();
+
   }
 }

@@ -19,10 +19,10 @@ class AuthController extends GetxController {
   User get user => _user.value!;
   @override
   void onReady() {
-    super.onReady();
     _user = Rx<User?>(firebaseAuth.currentUser);
     _user.bindStream(firebaseAuth.authStateChanges());
     ever(_user, _setInitialScreen);
+    super.onReady();
   }
 
   _setInitialScreen(User? user) {

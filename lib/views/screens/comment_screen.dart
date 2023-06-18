@@ -17,10 +17,10 @@ class CommentScreen extends StatelessWidget {
     commentController.updatePostId(id);
 
     return Scaffold(
-      body: SingleChildScrollView(
+      body: Container(
         child: SizedBox(
           width: size.width,
-          height: size.height,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
               Expanded(
@@ -34,12 +34,13 @@ class CommentScreen extends StatelessWidget {
                             backgroundColor: Colors.black,
                             backgroundImage: NetworkImage(comment.profilePhoto),
                           ),
-                          title: Row(
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "${comment.username} ",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                   color: Colors.red,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -47,7 +48,7 @@ class CommentScreen extends StatelessWidget {
                               Text(
                                 comment.comment,
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 13,
                                   color: Colors.white,
                                 ),
                               ),
@@ -59,7 +60,7 @@ class CommentScreen extends StatelessWidget {
                                 tago.format(comment.datePublished.toDate()),
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.white,
+                                  color: Colors.grey,
                                 ),
                               ),
                               const SizedBox(
@@ -69,7 +70,7 @@ class CommentScreen extends StatelessWidget {
                                 '${comment.likes.length} likes',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.white,
+                                  color: Colors.grey,
                                 ),
                               )
                             ],
@@ -79,9 +80,14 @@ class CommentScreen extends StatelessWidget {
                                 commentController.likeComment(comment.id);
                               },
                               child: Icon(
-                                comment.likes.contains(authController.user.uid) ? Icons.favorite : Icons.favorite_border,
+                                comment.likes.contains(authController.user.uid)
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
                                 size: 25,
-                                color: comment.likes.contains(authController.user.uid) ? Colors.red : Colors.white,
+                                color: comment.likes
+                                        .contains(authController.user.uid)
+                                    ? Colors.red
+                                    : Colors.white,
                               )),
                         );
                       });
@@ -109,7 +115,9 @@ class CommentScreen extends StatelessWidget {
                 ),
                 trailing: TextButton(
                   onPressed: () {
-                    commentController.postComment(textEditingController.text);
+                    var text = textEditingController.text.trim() ;
+                    text != '' ? commentController.postComment(text): '';
+                    textEditingController.text = '';
                   },
                   child: Text(
                     'Send',
